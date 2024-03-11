@@ -51,7 +51,7 @@ const HomePage = (props) => {
 
 export async function getServerSideProps(context) {
 
-  const client = await MongoClient.connect('mongodb+srv://sk2929542:1234shit@cluster0.7ypej7u.mongodb.net/Meetups?retryWrites=true&w=majority&appName=Cluster0');
+  const client = await MongoClient.connect(process.env.MONGODB_URI));
   const db = client.db('meetupDB'); // Replace 'meetupDB' with your database name
   const meetupsCollection = db.collection('meetups'); 
 
