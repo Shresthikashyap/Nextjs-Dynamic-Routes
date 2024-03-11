@@ -1,6 +1,6 @@
 import React from 'react';
 import MeetupList from '@/components/meetups/MeetupList';
-import Layout from '@/components/layout/Layout';
+import { MongoClient } from 'mongodb';
 
 // Define dummyMeetups outside of the component
 const dummyMeetups = [
@@ -44,10 +44,23 @@ const HomePage = (props) => {
 
 export async function getServerSideProps(context) {
 
-  
+  const client = await MongoClient.connect('mongodb+srv://sk2929542:1234shit@cluster0.7ypej7u.mongodb.net/Meetups?retryWrites=true&w=majority&appName=Cluster0');
+  const db = client.db('meetupDB'); // Replace 'meetupDB' with your database name
+  const meetupsCollection = db.collection('meetups'); 
+
+  const meetups = meetupsCollection.find().toArray();
+
+  //client.close();
+
   return {
     props: {
-      meetups: dummyMeetups
+      meetups: (await meetups).map(meetup => ({
+        id:meetup._id.toString(),
+        image: meetup.image,
+        title: meetup.title,
+        address:meetup.address,
+        description:meetup.description
+      }))
     }
   };
 }
