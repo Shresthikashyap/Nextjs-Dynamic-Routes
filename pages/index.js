@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import MeetupList from '@/components/meetups/MeetupList';
+import Head from 'next/head';
 import { MongoClient } from 'mongodb';
 
 // Define dummyMeetups outside of the component
@@ -36,9 +37,15 @@ const dummyMeetups = [
 
 const HomePage = (props) => {
   return (
-    <div>
+    <Fragment>
+      <Head>
+        <title>React Meetups</title>
+        <meta 
+              name="description"
+              content="Add a new React meetup"/>        
+      </Head>
       <MeetupList meetups={props.meetups}/>
-    </div>
+    </Fragment>
   );
 };
 

@@ -1,4 +1,6 @@
 import MeetupDetail from "@/components/meetups/MeetupDetail";
+import { Fragment } from "react";
+import Head from "next/head";
 import { MongoClient, ObjectId } from "mongodb";
 
 import React from 'react'
@@ -10,12 +12,21 @@ const MeetupDetails = (props) => {
     return <p>Meetup not found</p>; // Handle case where meetupData is null
   }
   return (
+
+    <Fragment>
+    <Head>
+      <title>{props.meetupData.title}</title>
+      <meta 
+            name="description"
+            content={props.meetupData.description}/>        
+    </Head>
     <MeetupDetail
        image={props.meetupData.image}
        title={props.meetupData.title}
        address={props.meetupData.address}
        description={props.meetupData.description}
     />
+  </Fragment>
   )
 }
 
